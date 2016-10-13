@@ -1,0 +1,76 @@
+"###############################################################################
+"                                                                              #
+" File informations:                                                           #
+" - Name:    vimperator/vimperatorrc.tt                                        #
+" - Summary: The main vimperator configuration file.                           #
+" - Authors:                                                                   #
+"   - Alessandro Molari <molari.alessandro@gmail.com> (alem0lars)              #
+"                                                                              #
+" Project informations:                                                        #
+" - Homepage:        https://github.com/alem0lars/configs                      #
+" - Getting started: see README.md in the project root folder                  #
+"                                                                              #
+" License: Apache v2.0 (see below)                                             #
+"                                                                              #
+"###############################################################################
+"                                                                              #
+" Licensed to the Apache Software Foundation (ASF) under one more contributor  #
+" license agreements.  See the NOTICE file distributed with this work for      #
+" additional information regarding copyright ownership. The ASF licenses this  #
+" file to you under the Apache License, Version 2.0 (the "License"); you may   #
+" not use this file except in compliance with the License.                     #
+" You may obtain a copy of the License at                                      #
+"                                                                              #
+"   http://www.apache.org/licenses/LICENSE-2.0                                 #
+"                                                                              #
+" Unless required by applicable law or agreed to in writing, software          #
+" distributed under the License is distributed on an "AS IS" BASIS, WITHOUT    #
+" WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.             #
+" See the License for the specific language governing permissions and          #
+" limitations under the License.                                               #
+"                                                                              #
+"###############################################################################
+
+
+" {{{ Appearance.
+
+" Set the colorscheme.
+<% if get_var 'colorscheme' %>
+colorscheme <%= get_var! 'colorscheme.name' %>.vimp
+<% end %>
+
+" }}}
+
+" {{{ Options.
+
+" Show numbers on tabs.
+set tabnumbers=true
+
+" Follow the hint selected on <Return>.
+set followhints=1
+
+" What characters to use for labeling hints.
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
+
+" Number of ex-commands and search patterns to store in the history.
+set history=2048
+
+" Keep tabs and addons toolbars. Hide the rest.
+set toolbars=addons,tabs,nobookmarks,nomenu,nonavigation
+
+<% if get_var('vimperator.default_search_engine') %>
+set defsearch=<%= get_var!('vimperator.default_search_engine') %>
+<% end %>
+
+" }}}
+
+" {{{ Hotkeys.
+
+" Make vertical navigation move of some rows instead of just one.
+noremap j 6j
+noremap k 6k
+
+" }}}
+
+
+" vim: set ft=vim :
