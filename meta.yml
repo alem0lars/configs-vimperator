@@ -1,0 +1,13 @@
+elems:
+
+  - src:  (vimperatorrc)$
+    dst:  ~/.<1>
+    only: f?vimperator
+
+  - src:  (plugin/.+)$
+    dst:  ~/.vimperator/<1>
+    only: f?vimperator
+
+  - src:  (colors/.+)$
+    dst:  ~/.vimperator/<1>
+    only: f?vimperator
