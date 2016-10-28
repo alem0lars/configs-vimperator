@@ -1,11 +1,7 @@
-" ==Vimperator_Color_Scheme==
-" name: jellybeans
-" author: Tyil <tyil@voidfire.com>
-
-" clear the other colors
+" Clear the other colors
 hi clear
 
-" start jellybeans coloring
+
 hi Normal               color: #eeeeee; background: #1c1c1c;
 hi CmdLine              color: #eeeeee; background: #1c1c1c; "font-size: 10pt; font-family: monospace; font-weight: normal; padding: 0px 3px;
 

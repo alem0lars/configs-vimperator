@@ -1,13 +1,13 @@
 elems:
 
-  - src:  (vimperatorrc)$
+  - src:  ^(vimperatorrc)$
     dst:  ~/.<1>
     only: f?vimperator
 
-  - src:  (plugin/.+)$
+  - src:  ^(plugin/.+)$
     dst:  ~/.vimperator/<1>
     only: f?vimperator
 
-  - src:  (colors/.+)$
+  - src:  ^(colors/.+)$
     dst:  ~/.vimperator/<1>
     only: f?vimperator

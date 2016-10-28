@@ -1,1 +1,8 @@
 # => inherits: generic <= #
+
+
+colorscheme:
+  name: molokai
+
+vimperator:
+  default_search_engine: google
