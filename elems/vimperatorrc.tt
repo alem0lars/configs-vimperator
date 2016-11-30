@@ -35,8 +35,8 @@
 " {{{ Appearance.
 
 " Set the colorscheme.
-<% if get_var 'colorscheme' %>
-colorscheme <%= get_var! 'colorscheme.name' %>
+<% if get_var :'colorscheme' %>
+colorscheme <%= get_var! :"colorscheme.name" %>
 <% end %>
 
 " }}}
@@ -58,8 +58,8 @@ set history=2048
 " Keep tabs and addons toolbars. Hide the rest.
 set toolbars=addons,tabs,nobookmarks,nomenu,nonavigation
 
-<% if get_var('vimperator.default_search_engine') %>
-set defsearch=<%= get_var!('vimperator.default_search_engine') %>
+<% if get_var(:'vimperator.default_search_engine') %>
+set defsearch=<%= get_var!(:'vimperator.default_search_engine') %>
 <% end %>
 
 " }}}
@@ -73,4 +73,4 @@ noremap k 6k
 " }}}
 
 
-" vim: set ft=vim :
+" vim: set ft=eruby.vim :

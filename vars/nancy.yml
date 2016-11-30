@@ -5,7 +5,7 @@ colorscheme:
   name: molokai
 
 vimperator:
-default_search_engine: google
+  default_search_engine: google
 
 
 # vim: set filetype=eruby.yaml :
