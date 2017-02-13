@@ -1,50 +1,51 @@
-"###############################################################################
-"                                                                              #
-" File informations:                                                           #
-" - Name:    vimperator/vimperatorrc.tt                                        #
-" - Summary: The main vimperator configuration file.                           #
-" - Authors:                                                                   #
-"   - Alessandro Molari <molari.alessandro@gmail.com> (alem0lars)              #
-"                                                                              #
-" Project informations:                                                        #
-" - Homepage:        https://github.com/alem0lars/configs                      #
-" - Getting started: see README.md in the project root folder                  #
-"                                                                              #
-" License: Apache v2.0 (see below)                                             #
-"                                                                              #
-"###############################################################################
-"                                                                              #
-" Licensed to the Apache Software Foundation (ASF) under one more contributor  #
-" license agreements.  See the NOTICE file distributed with this work for      #
-" additional information regarding copyright ownership. The ASF licenses this  #
-" file to you under the Apache License, Version 2.0 (the "License"); you may   #
-" not use this file except in compliance with the License.                     #
-" You may obtain a copy of the License at                                      #
-"                                                                              #
-"   http://www.apache.org/licenses/LICENSE-2.0                                 #
-"                                                                              #
-" Unless required by applicable law or agreed to in writing, software          #
-" distributed under the License is distributed on an "AS IS" BASIS, WITHOUT    #
-" WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.             #
-" See the License for the specific language governing permissions and          #
-" limitations under the License.                                               #
-"                                                                              #
-"###############################################################################
+" ─────────────────────────────────────────────────────────────────────────────┐
+"                                                                              │
+" Name:    elems/vimperatorrc.tt                                               │
+" Summary: The vimperator configuration.                                       │
+" Authors:                                                                     │
+"   - Alessandro Molari <molari.alessandro@gmail.com> (alem0lars)              │
+" Thanks:                                                                      │
+"   - Giacomo Mantani (jake)                                                   │
+"                                                                              │
+" Project:                                                                     │
+"   - Homepage:        https://github.com/alem0lars/configs-vimperator         │
+"   - Getting started: see README.md in the project root folder                │
+"                                                                              │
+" License: Apache v2.0 (see below)                                             │
+"                                                                              │
+" ─────────────────────────────────────────────────────────────────────────────┤
+"                                                                              │
+" Licensed to the Apache Software Foundation (ASF) under one more contributor  │
+" license agreements.  See the NOTICE file distributed with this work for      │
+" additional information regarding copyright ownership. The ASF licenses this  │
+" file to you under the Apache License, Version 2.0 (the "License"); you may   │
+" not use this file except in compliance with the License.                     │
+" You may obtain a copy of the License at                                      │
+"                                                                              │
+"   http://www.apache.org/licenses/LICENSE-2.0                                 │
+"                                                                              │
+" Unless required by applicable law or agreed to in writing, software          │
+" distributed under the License is distributed on an "AS IS" BASIS, WITHOUT    │
+" WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.             │
+" See the License for the specific language governing permissions and          │
+" limitations under the License.                                               │
+"                                                                              │
+" ─────────────────────────────────────────────────────────────────────────────┤
+<% define_locals do
+  variable :"vimperator.colorscheme",           as: :colorscheme
+  variable :"vimperator.default_search_engine", as: :default_search_engine
+end %>
+" ─────────────────────────────────────────────────────────────────────────────┘
 
 
-" {{{ Appearance.
-
+" ─────────────────────────────────────────────────────────────── Appearance ──┐
 " Set the colorscheme.
-<% if get_var :'colorscheme' %>
-colorscheme <%= get_var! :"colorscheme.name" %>
+<% if local? :colorscheme %>
+colorscheme <%= local! :colorscheme %>
 <% end %>
-
-" }}}
-
-" {{{ Options.
-
+" ────────────────────────────────────────────────────────────────── Options ──┤
 " Show numbers on tabs.
-set tabnumbers=true
+set tabnumbers
 
 " Follow the hint selected on <Return>.
 set followhints=1
@@ -58,19 +59,135 @@ set history=2048
 " Keep tabs and addons toolbars. Hide the rest.
 set toolbars=addons,tabs,nobookmarks,nomenu,nonavigation
 
-<% if get_var(:'vimperator.default_search_engine') %>
-set defsearch=<%= get_var!(:'vimperator.default_search_engine') %>
+set status=input,location,bookmark,history,tabcount,position,ssl,zoomlevel
+" ─────────────────────────────────────────────────────────────────── Search ──┤
+" Find as you type
+set incsearch
+
+" Highlight the terms
+set hlsearch
+
+" Make searches case-insensitive
+set ignorecase
+
+" Unless they contain upper-case letters
+set smartcase
+
+" Try to stay in normal mode after loading a web page
+set focuscontent
+
+<% if local? :default_search_engine %>
+set defsearch=<%= local! :default_search_engine %>
 <% end %>
+" ───────────────────────────────────────────────────────────────── Commands ──┤
+command! dump -nargs=1 -description "Dump buffers to file" javascript dump_buffers("<args>")
+" ────────────────────────────────────────────────────────────────── Hotkeys ──┤
+nnoremap <silent> l gt
+nnoremap <silent> h gT
 
-" }}}
-
-" {{{ Hotkeys.
+nnoremap <silent> <leader>$ :tablast<CR>
+nnoremap <silent> <leader>0 :tabrewind<CR>
+nnoremap <silent> <leader>2 :tabduplicate<CR>
+nnoremap <silent> <leader>J :jumps<CR>
+nnoremap <silent> <leader>l :reloadall<CR>
+nnoremap <silent> <leader>n :nohlsearch<CR>
+nnoremap <silent> <leader>S :stopall<CR>
 
 " Make vertical navigation move of some rows instead of just one.
 noremap j 6j
 noremap k 6k
 
-" }}}
+" Firefox behavior of <C-w> is better than vimperator d, back to previous tab!
+nnoremap <silent> d <C-w>
+
+" Damn <C-k>
+nnoremap <C-k> ""
+
+nnoremap <A-r> :restart<CR>
+
+" Quick search hotkeys.
+<% if local? :default_search_engine %>
+nnoremap <silent> s :tabopen <%= local! :default_search_engine %><Space>
+nnoremap <silent> S :open <%= local! :default_search_engine %><Space>
+nnoremap <silent> <leader>p :winopen -private <%= local! :default_search_engine %><Space>
+<% end %>
+<% if has_feature? :unibo %>
+ nnoremap <silent> p :javascript add_unibo_proxy()<CR>
+<% end %>
+<% if has_feature? :pinboard %>
+nnoremap <silent> a :javascript pinboard_add()<CR>
+nnoremap <silent> <leader>r :javascript pinboard_readlater()<CR>
+<% end %>
+<% if has_feature? :noscript %>
+noremap <silent> <C-t> :noscript toggletemp<CR>
+<% end %>
+" ──────────────────────────────────────────────────────────────── Functions ──┤
+" ────────────────────────────────────────────────────── Buffers ← Functions ──┤
+javascript <<EOF
+function dump_buffers(path){
+  Components.utils.import("resource://gre/modules/NetUtil.jsm");
+  Components.utils.import("resource://gre/modules/FileUtils.jsm");
+  var FileUtils = Cu.import("resource://gre/modules/FileUtils.jsm").FileUtils;
+
+  var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].
+                  createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
+  converter.charset = "UTF-8";
+
+  var file = new FileUtils.File(path);
+
+  with (content) {
+    urls = "";
+    len = config.tabbrowser.browsers.length;
+    l = parseInt(lowerLimit, 10) || 0;
+    r = parseInt(upperLimit, 10) || len;
+    config.tabbrowser.browsers.slice(l < 0 ? 0: l, r > len ? len : r)
+      .forEach(function(tab, i) {
+        urls += tab.currentURI.spec + '\n';
+    });
+
+    var istream = converter.convertToInputStream(urls);
+    var ostream = FileUtils.openSafeFileOutputStream(file);
+
+    NetUtil.asyncCopy(istream, ostream);
+  }
+}
+EOF
+" ───────────────────────────────────────────────────── Pinboard ← Functions ──┤
+" Thanks to http://www.mozdev.org/pipermail/vimperator/2009-July/004526.html
+javascript <<EOF
+<% if has_feature? :pinboard %>
+function pinboard_add() {
+  with (content) {
+    url=location.href;
+    title=document.title;
+    desc=document.getSelection?document.getSelection():'';
+    open('https://pinboard.in/add?showtags=yes&url='+encodeURIComponent(url)+'&description='+encodeURIComponent(desc)+'&title='+encodeURIComponent(title));
+  }
+}
+
+function pinboard_readlater() {
+  with (content) {
+    url = location.href;
+    title = document.title;
+    desc = document.getSelection ? document.getSelection() : '';
+    open('https://pinboard.in/add?later=yes&noui=yes&jump=close&url=' +
+         encodeURIComponent(url) + '&description=' + encodeURIComponent(desc) +
+         '&title=' + encodeURIComponent(title));
+  }
+}
+<% end %>
+EOF
+" ──────────────────────────────────────────────────────── Unibo ← Functions ──┤
+javascript <<EOF
+<% if has_feature? :unibo %>
+function add_unibo_proxy(){
+  with(content) {
+    location.host += '.ezproxy.unibo.it';
+  }
+}
+<% end %>
+EOF
+" ─────────────────────────────────────────────────────────────────────────────┘
 
 
 " vim: set ft=eruby.vim :
