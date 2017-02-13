@@ -32,7 +32,7 @@
 "                                                                              │
 " ─────────────────────────────────────────────────────────────────────────────┤
 <% define_locals do
-  variable :"vimperator.colorscheme",           as: :colorscheme
+  variable :"vimperator.colorscheme.name",      as: :colorscheme
   variable :"vimperator.default_search_engine", as: :default_search_engine
 end %>
 " ─────────────────────────────────────────────────────────────────────────────┘
