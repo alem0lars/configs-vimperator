@@ -1,0 +1,6 @@
+vimperator:
+  colorscheme:
+    name: molokai
+
+
+# vim: set filetype=eruby.yaml :

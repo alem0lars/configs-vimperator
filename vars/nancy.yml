@@ -1,11 +1,4 @@
-# => inherits: generic <= #
-
-
-colorscheme:
-  name: molokai
-
-vimperator:
-  default_search_engine: google
+# => inherits: generic, with-colorscheme-molokai, with-searchengine-google, with-alem0lars-features <= #
 
 
 # vim: set filetype=eruby.yaml :
