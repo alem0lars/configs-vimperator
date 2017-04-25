@@ -1,0 +1,6 @@
+vimperator:
+  colorscheme:
+    name: custom
+
+
+# vim: set filetype=eruby.yaml :

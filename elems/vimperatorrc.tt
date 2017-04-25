@@ -80,7 +80,7 @@ set focuscontent
 set defsearch=<%= local! :default_search_engine %>
 <% end %>
 " ───────────────────────────────────────────────────────────────── Commands ──┤
-command! dump -nargs=1 -description "Dump buffers to file" javascript dump_buffers("<args>")
+
 " ────────────────────────────────────────────────────────────────── Hotkeys ──┤
 nnoremap <silent> l gt
 nnoremap <silent> h gT
@@ -111,9 +111,6 @@ nnoremap <silent> s :tabopen <%= local! :default_search_engine %><Space>
 nnoremap <silent> S :open <%= local! :default_search_engine %><Space>
 nnoremap <silent> <leader>p :winopen -private <%= local! :default_search_engine %><Space>
 <% end %>
-<% if has_feature? :unibo %>
- nnoremap <silent> p :javascript add_unibo_proxy()<CR>
-<% end %>
 <% if has_feature? :pinboard %>
 nnoremap <silent> a :javascript pinboard_add()<CR>
 nnoremap <silent> <leader>r :javascript pinboard_readlater()<CR>
@@ -122,36 +119,6 @@ nnoremap <silent> <leader>r :javascript pinboard_readlater()<CR>
 noremap <silent> <C-t> :noscript toggletemp<CR>
 <% end %>
 " ──────────────────────────────────────────────────────────────── Functions ──┤
-" ────────────────────────────────────────────────────── Buffers ← Functions ──┤
-javascript <<EOF
-function dump_buffers(path){
-  Components.utils.import("resource://gre/modules/NetUtil.jsm");
-  Components.utils.import("resource://gre/modules/FileUtils.jsm");
-  var FileUtils = Cu.import("resource://gre/modules/FileUtils.jsm").FileUtils;
-
-  var converter = Components.classes["@mozilla.org/intl/scriptableunicodeconverter"].
-                  createInstance(Components.interfaces.nsIScriptableUnicodeConverter);
-  converter.charset = "UTF-8";
-
-  var file = new FileUtils.File(path);
-
-  with (content) {
-    urls = "";
-    len = config.tabbrowser.browsers.length;
-    l = parseInt(lowerLimit, 10) || 0;
-    r = parseInt(upperLimit, 10) || len;
-    config.tabbrowser.browsers.slice(l < 0 ? 0: l, r > len ? len : r)
-      .forEach(function(tab, i) {
-        urls += tab.currentURI.spec + '\n';
-    });
-
-    var istream = converter.convertToInputStream(urls);
-    var ostream = FileUtils.openSafeFileOutputStream(file);
-
-    NetUtil.asyncCopy(istream, ostream);
-  }
-}
-EOF
 " ───────────────────────────────────────────────────── Pinboard ← Functions ──┤
 " Thanks to http://www.mozdev.org/pipermail/vimperator/2009-July/004526.html
 javascript <<EOF
@@ -173,16 +140,6 @@ function pinboard_readlater() {
     open('https://pinboard.in/add?later=yes&noui=yes&jump=close&url=' +
          encodeURIComponent(url) + '&description=' + encodeURIComponent(desc) +
          '&title=' + encodeURIComponent(title));
-  }
-}
-<% end %>
-EOF
-" ──────────────────────────────────────────────────────── Unibo ← Functions ──┤
-javascript <<EOF
-<% if has_feature? :unibo %>
-function add_unibo_proxy(){
-  with(content) {
-    location.host += '.ezproxy.unibo.it';
   }
 }
 <% end %>

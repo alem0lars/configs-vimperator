@@ -1,0 +1,108 @@
+# => inherits: with-colorscheme-custom <= #
+
+
+vimperator:
+  theme:
+    Normal:
+      background: '#121112'
+      color: '#D0CFD0'
+    CmdLine:
+      background: '#121112'
+      color: '#D0CFD0'
+    CompGroup:
+      background: '#121112'
+      color: '#D0CFD0'
+    CompTitle:
+      background: '#1c1b1c'
+      font-weight: bold
+    'CompTitle>*':
+      color: '#D0CFD0'
+      padding: 1px 0.5ex
+    CompItem:
+      background: '#121112'
+      color: '#D0CFD0'
+    'CompItem[selected]':
+      background: '#262426'
+      color: '#FF9926'
+    CompDesc:
+      width: 500px
+      max-width: 500px
+      color: '#465457'
+    CompMsg:
+      margin-left: 16px
+    ErrorMsg:
+      background: '#D7005F'
+      color: '#D0CFD0'
+      font-weight: bold
+    Filter:
+      color: '#FF8700'
+      background: '#262426'
+    StatusLine:
+      background: transparent
+      color: '#D0CFD0'
+      font-weight: normal
+    Hint:
+      font-family: monospace
+      font-size: 10px
+      font-weight: bold
+      color: '#1B1D1E'
+      background-color: '#FD971F'
+      opacity: '.7'
+    'Hint::after':
+      content: attr(number)
+    HintActive:
+      background-color: '#1B1D1E'
+      color: '#FD971F'
+      opacity: 1
+      border-color: '#101A1B'
+    HintElem:
+      background-color: '#1B1D1E'
+      color: '#FD971F'
+      opacity: '.8'
+      border-color: '#101A1B'
+      border-style: solid
+      border-width: 1px
+    HintImage:
+      opacity: '.5'
+    URL:
+      text-decoration: none
+      color: '#87FF00'
+    ModeMsg:
+      color: white
+      background: '#3E6700'
+      border-radius: 1px
+      padding: 0px 5px
+    MoreMsg:
+      background-color: '#121112'
+      color: '#87FF00'
+    Tag:
+      color: '#005F87'
+    InfoMsg:
+      background: '#121112'
+      color: '#87FF00'
+    WarningMsg:
+      background: '#121112'
+      color: '#D7005F'
+    PromptText:
+      color: white
+      background: '#860EFF'
+    'Null':
+      color: '#005F87'
+    Number:
+      color: '#005F87'
+    NonText:
+      color: '#B973FF'
+      min-height: 16px
+      padding-left: 2px
+    Title:
+      background-color: '#D7005F'
+      color: '#D0CFD0'
+      font-weight: bold
+    Indicator:
+      color: '#D7005F'
+    ContentSeparator:
+      border-top: '1px solid #262426'
+      display: -moz-box
+
+
+# vim: set filetype=eruby.yaml :
